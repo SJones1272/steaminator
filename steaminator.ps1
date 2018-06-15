@@ -5,7 +5,7 @@ Start-Process powershell.exe -Verb RunAs -ArgumentList ('-noprofile -noexit -fil
 exit $LASTEXITCODE
 }
 
-set-ExecutionPolicy AllSigned
+set-ExecutionPolicy unrestricted
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $InstallDir='C:\ProgramData\chocoportable'
 $env:ChocolateyInstall="$InstallDir"
@@ -35,7 +35,7 @@ Expand-Archive c:\installcentral\p5.zip -DestinationPath "$env:Public\Desktop\p5
 
 #black magic to install scratch msi - will be prompts 
 c:\installcentral\Scratch2_MSI.exe /s /x /b"c:\installcentral" /v"/qn"
-
+refreshenv
 Start-Process msiexec.exe -Wait -ArgumentList '/I c:\installcentral\Scratch2_MSI.msi'
 
 
